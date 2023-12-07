@@ -42,6 +42,7 @@ string_t preprocess(file_t *file, variables_t *vars) {
                             exit(1);
                         }
                     }
+                    // if the comment is first in the line (not counting whitespaces)
                     no_new_line = !(i - spaced);
                     break;
                     // variables
