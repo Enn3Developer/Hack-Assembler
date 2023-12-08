@@ -95,3 +95,55 @@ void clear(string_t *str, unsigned long capacity) {
     str->elements = tmp;
     str->capacity = capacity;
 }
+
+string_t substring_to_newline(string_t *str, unsigned int idx) {
+    string_t s = new_string(8);
+    unsigned int i = idx;
+    char c = str->elements[i];
+
+    while (c != '\n') {
+        push(&s, c);
+        i++;
+        c = str->elements[i];
+    }
+
+    return s;
+}
+
+int contains(string_t *str, char c) {
+    for (unsigned int i = 0; i < str->len; i++) {
+        if (str->elements[i] == c) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int substring_equals(string_t *str, unsigned int start, unsigned int len, const char *chars) {
+    if (str->len <= (start + len)) {
+        return 0;
+    }
+
+    for (unsigned int i = start; i < (start + len); i++) {
+        if (str->elements[i] != chars[i - start]) {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+char *substring(string_t *str, unsigned int start, unsigned int len) {
+    char *chars = malloc(sizeof(char) * len);
+
+    if (str->len <= (start + len)) {
+        return chars;
+    }
+
+    for (unsigned int i = start; i < (start + len); i++) {
+        chars[i - start] = str->elements[i];
+    }
+
+    return chars;
+}

@@ -11,4 +11,6 @@ add_executable(progetto5 main.c
         preproccesor.c
         preproccesor.h
         variables.c
-        variables.h)
+        variables.h
+        assembler.c
+        assembler.h)

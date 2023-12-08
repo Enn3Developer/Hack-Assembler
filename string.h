@@ -25,4 +25,12 @@ int equals(string_t *str, string_t *other);
 
 void clear(string_t *str, unsigned long capacity);
 
+string_t substring_to_newline(string_t *str, unsigned int idx);
+
+int contains(string_t *str, char c);
+
+int substring_equals(string_t *str, unsigned int start, unsigned int len, const char *chars);
+
+char *substring(string_t *str, unsigned int start, unsigned int len);
+
 #endif //PROGETTO5_STRING_H
