@@ -47,7 +47,7 @@ string_t preprocess(file_t *file, variables_t *vars) {
                     break;
                     // variables
                 case '@':
-                    is_processing = 1;
+//                    is_processing = 1;
                     push(&preprocessed, c);
                     break;
                     // labels
@@ -64,7 +64,7 @@ string_t preprocess(file_t *file, variables_t *vars) {
                                    line_idx);
                             exit(1);
                         } else {
-                            variables_add_label(vars, processing, line_labeled);
+                            variables_add_label(vars, copy(&processing), line_labeled);
                             clear(&processing, 8);
                         }
                     } else {

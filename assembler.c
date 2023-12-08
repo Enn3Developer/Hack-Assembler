@@ -39,7 +39,11 @@ string_t a_inst(string_t *line, variables_t *vars) {
         free(str);
         return to_binary(value);
     } else {
-        unsigned int var = variables_find(vars, *line);
+        int var = variables_find(vars, *line);
+        if (var == -1) {
+            variables_push_var(vars, *line);
+            var = variables_find(vars, *line);
+        }
         return to_binary(var);
     }
 }
@@ -47,11 +51,12 @@ string_t a_inst(string_t *line, variables_t *vars) {
 string_t c_inst(string_t *line, variables_t *vars) {
     string_t c_i = new_string(16);
     append(&c_i, "111");
-    push(&c_i, '0' + (contains(line, 'M') >= 0));
 
     int equal_pos = contains(line, '=');
     int jmp_pos = contains(line, ';');
     int comp_pos = 1;
+
+    push(&c_i, '0' + (contains(line, 'M') > equal_pos));
 
     switch (line->elements[equal_pos + comp_pos]) {
         case '0':

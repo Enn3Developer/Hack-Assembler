@@ -20,7 +20,7 @@ void push(string_t *str, char element) {
     if (str->len == str->capacity) {
         unsigned long c = str->capacity << 1;
         char *tmp = malloc(c * sizeof(char));
-        memcpy(tmp, str->elements, str->len);
+        memcpy(tmp, str->elements, str->len * sizeof(char));
         free(str->elements);
         str->elements = tmp;
         str->capacity = c;
@@ -57,7 +57,7 @@ void append_str(string_t *str, string_t *other) {
     if ((str->len + other->len) >= str->capacity) {
         unsigned long c = str->capacity << 1;
         char *tmp = malloc(c * sizeof(char));
-        memcpy(tmp, str->elements, str->len);
+        memcpy(tmp, str->elements, str->len * sizeof(char));
         free(str->elements);
         str->elements = tmp;
         str->capacity = c;
@@ -146,4 +146,11 @@ char *substring(string_t *str, unsigned int start, unsigned int len) {
     }
 
     return chars;
+}
+
+string_t copy(string_t *str) {
+    string_t new = new_string(str->capacity);
+    append_str(&new, str);
+
+    return new;
 }

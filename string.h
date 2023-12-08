@@ -33,4 +33,6 @@ int substring_equals(string_t *str, unsigned int start, unsigned int len, const 
 
 char *substring(string_t *str, unsigned int start, unsigned int len);
 
+string_t copy(string_t *str);
+
 #endif //PROGETTO5_STRING_H

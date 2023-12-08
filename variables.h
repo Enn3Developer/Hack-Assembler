@@ -35,7 +35,7 @@ void variables_add_variable(variables_t *variables, string_t var, unsigned int v
 
 void variables_add_label(variables_t *variables, string_t label, unsigned int value);
 
-unsigned int variables_find(variables_t *variables, string_t key);
+int variables_find(variables_t *variables, string_t key);
 
 void variables_add_std_vars(variables_t *variables);
 
