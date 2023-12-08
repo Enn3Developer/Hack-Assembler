@@ -56,7 +56,9 @@ string_t c_inst(string_t *line, variables_t *vars) {
     int jmp_pos = contains(line, ';');
     int comp_pos = 1;
 
-    push(&c_i, '0' + (contains(line, 'M') > equal_pos));
+    string_t sub_m = from(substring(line, equal_pos + 1, line->len - equal_pos - 1));
+    int contains_m = contains(&sub_m, 'M') + equal_pos + 1;
+    push(&c_i, '0' + (equal_pos >= 0 && contains_m > equal_pos && (jmp_pos < 0 || contains_m < jmp_pos)));
 
     switch (line->elements[equal_pos + comp_pos]) {
         case '0':
@@ -150,8 +152,8 @@ string_t c_inst(string_t *line, variables_t *vars) {
 
     if (jmp_pos >= 0) {
         string_t sub = from(substring(line, jmp_pos + 1, line->len - jmp_pos - 1));
-        string_t jmp = from("JMP");
-        string_t jne = from("JNE");
+        string_t jmp = from("JMP\0");
+        string_t jne = from("JNE\0");
         if (equals(&sub, &jmp)) {
             append(&c_i, "111\0");
         } else if (equals(&sub, &jne)) {
@@ -171,12 +173,14 @@ string_t c_inst(string_t *line, variables_t *vars) {
 string_t to_binary(unsigned int n) {
     int num_bits = 16;
 
-    char *string = malloc(num_bits);
+    char *string = malloc(num_bits + 1);
     string[0] = '0';
     for (int i = num_bits - 1; i >= 1; i--) {
         string[i] = (n & 1) + '0';
         n >>= 1;
     }
+
+    string[16] = '\0';
 
     return from(string);
 }

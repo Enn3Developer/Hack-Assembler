@@ -135,15 +135,17 @@ int substring_equals(string_t *str, unsigned int start, unsigned int len, const 
 }
 
 char *substring(string_t *str, unsigned int start, unsigned int len) {
-    char *chars = malloc(sizeof(char) * len);
+    char *chars = malloc(sizeof(char) * (len + 1));
 
-    if (str->len <= (start + len)) {
+    if (str->len < (start + len)) {
         return chars;
     }
 
     for (unsigned int i = start; i < (start + len); i++) {
         chars[i - start] = str->elements[i];
     }
+
+    chars[len] = '\0';
 
     return chars;
 }

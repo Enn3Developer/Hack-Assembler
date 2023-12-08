@@ -1,6 +1,7 @@
 #include "variables.h"
 #include <stdlib.h>
 #include <memory.h>
+#include <stdio.h>
 
 var_entry_t new_var_entry(string_t key, unsigned int value) {
     var_entry_t v = {key, value};
@@ -67,8 +68,9 @@ void variables_add_variable(variables_t *variables, string_t var, unsigned int v
 
 void variables_add_label(variables_t *variables, string_t label, unsigned int value) {
     for (unsigned int i = 0; i < variables->labels.len; i++) {
-        var_entry_t entry = variables->labels.elements[i];
-        if (equals(&entry.key, &label)) {
+        var_entry_t *entry = &variables->labels.elements[i];
+        if (equals(&entry->key, &label)) {
+            entry->value = value;
             return;
         }
     }
